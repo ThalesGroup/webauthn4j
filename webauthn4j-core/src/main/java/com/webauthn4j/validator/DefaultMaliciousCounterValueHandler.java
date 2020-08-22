@@ -28,7 +28,7 @@ class DefaultMaliciousCounterValueHandler implements MaliciousCounterValueHandle
     // ========================================================================================================
 
     @Override
-    public void maliciousCounterValueDetected(AuthenticationObject authenticationObject) {
+    public void maliciousCounterValueDetected(CoreAuthenticationObject authenticationObject) {
         throw new MaliciousCounterValueException("Malicious counter value is detected. Cloned authenticators exist in parallel.");
     }
 }

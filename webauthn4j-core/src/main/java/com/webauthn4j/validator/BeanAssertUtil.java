@@ -16,10 +16,7 @@
 
 package com.webauthn4j.validator;
 
-import com.webauthn4j.data.AuthenticationData;
-import com.webauthn4j.data.AuthenticationParameters;
-import com.webauthn4j.data.RegistrationData;
-import com.webauthn4j.data.RegistrationParameters;
+import com.webauthn4j.data.*;
 import com.webauthn4j.data.attestation.AttestationObject;
 import com.webauthn4j.data.attestation.authenticator.AAGUID;
 import com.webauthn4j.data.attestation.authenticator.AttestedCredentialData;
@@ -32,6 +29,7 @@ import com.webauthn4j.data.extension.authenticator.AuthenticationExtensionsAuthe
 import com.webauthn4j.data.extension.authenticator.ExtensionAuthenticatorOutput;
 import com.webauthn4j.data.extension.client.AuthenticationExtensionsClientOutputs;
 import com.webauthn4j.data.extension.client.ExtensionClientOutput;
+import com.webauthn4j.server.CoreServerProperty;
 import com.webauthn4j.server.ServerProperty;
 import com.webauthn4j.util.UnsignedNumberUtil;
 import com.webauthn4j.validator.exception.ConstraintViolationException;
@@ -67,8 +65,30 @@ class BeanAssertUtil {
         }
     }
 
+    public static void validate(CoreRegistrationData registrationData) {
+        if (registrationData == null) {
+            throw new ConstraintViolationException("registrationData must not be null");
+        }
+
+        validate(registrationData.getAttestationObject());
+
+        if (registrationData.getAttestationObjectBytes() == null) {
+            throw new ConstraintViolationException("attestationObjectBytes must not be null");
+        }
+
+        if (registrationData.getClientDataHash() == null) {
+            throw new ConstraintViolationException("attestationObjectBytes must not be null");
+        }
+    }
 
     public static void validate(RegistrationParameters registrationParameters) {
+        if (registrationParameters == null) {
+            throw new ConstraintViolationException("registrationParameters must not be null");
+        }
+        validate(registrationParameters.getServerProperty());
+    }
+
+    public static void validate(CoreRegistrationParameters registrationParameters) {
         if (registrationParameters == null) {
             throw new ConstraintViolationException("registrationParameters must not be null");
         }
@@ -100,7 +120,34 @@ class BeanAssertUtil {
         validateAuthenticationExtensionsClientOutputs(authenticationData.getClientExtensions());
     }
 
+    public static void validate(CoreAuthenticationData authenticationData) {
+        if (authenticationData == null) {
+            throw new ConstraintViolationException("authenticationData must not be null");
+        }
+
+        if (authenticationData.getCredentialId() == null) {
+            throw new ConstraintViolationException("credentialId must not be null");
+        }
+        if (authenticationData.getSignature() == null) {
+            throw new ConstraintViolationException("signature must not be null");
+        }
+        validate(authenticationData.getAuthenticatorData());
+        if (authenticationData.getAuthenticatorDataBytes() == null) {
+            throw new ConstraintViolationException("authenticatorDataBytes must not be null");
+        }
+    }
+
     public static void validate(AuthenticationParameters authenticationParameters) {
+        if (authenticationParameters == null) {
+            throw new ConstraintViolationException("authenticationParameters must not be null");
+        }
+        if (authenticationParameters.getAuthenticator() == null) {
+            throw new ConstraintViolationException("authenticator must not be null");
+        }
+        validate(authenticationParameters.getServerProperty());
+    }
+
+    public static void validate(CoreAuthenticationParameters authenticationParameters) {
         if (authenticationParameters == null) {
             throw new ConstraintViolationException("authenticationParameters must not be null");
         }
@@ -225,6 +272,18 @@ class BeanAssertUtil {
         }
     }
 
+    public static void validate(CoreServerProperty serverProperty) {
+        if (serverProperty == null) {
+            throw new ConstraintViolationException("serverProperty must not be null");
+        }
+        if (serverProperty.getRpId() == null) {
+            throw new ConstraintViolationException("rpId must not be null");
+        }
+        if (serverProperty.getChallenge() == null) {
+            throw new ConstraintViolationException("challenge must not be null");
+        }
+    }
+
     public static void validate(AttestationStatement attestationStatement) {
         if (attestationStatement == null) {
             throw new ConstraintViolationException("attestationStatement must not be null");
@@ -238,6 +297,5 @@ class BeanAssertUtil {
         }
         coseKey.validate();
     }
-
 
 }

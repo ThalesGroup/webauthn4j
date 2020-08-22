@@ -21,5 +21,5 @@ package com.webauthn4j.validator;
  */
 public interface MaliciousCounterValueHandler {
 
-    void maliciousCounterValueDetected(AuthenticationObject authenticationObject);
+    void maliciousCounterValueDetected(CoreAuthenticationObject authenticationObject);
 }
