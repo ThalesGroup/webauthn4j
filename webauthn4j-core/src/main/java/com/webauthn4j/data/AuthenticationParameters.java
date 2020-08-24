@@ -23,6 +23,10 @@ import java.util.List;
 
 public class AuthenticationParameters extends CoreAuthenticationParameters {
 
+    /**
+     * @deprecated
+     */
+    @Deprecated
     public AuthenticationParameters(
             ServerProperty serverProperty,
             Authenticator authenticator,
@@ -32,6 +36,7 @@ public class AuthenticationParameters extends CoreAuthenticationParameters {
         super(serverProperty, authenticator, userVerificationRequired, userPresenceRequired, expectedExtensionIds);
     }
 
+    @SuppressWarnings("deprecation")
     public AuthenticationParameters(
             ServerProperty serverProperty,
             Authenticator authenticator,
@@ -65,4 +70,5 @@ public class AuthenticationParameters extends CoreAuthenticationParameters {
     public Authenticator getAuthenticator() {
         return (Authenticator) super.getAuthenticator();
     }
+
 }

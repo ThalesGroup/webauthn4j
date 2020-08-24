@@ -22,6 +22,10 @@ import java.util.List;
 
 public class RegistrationParameters extends CoreRegistrationParameters {
 
+    /**
+     * @deprecated
+     */
+    @Deprecated
     public RegistrationParameters(ServerProperty serverProperty, boolean userVerificationRequired, boolean userPresenceRequired, List<String> expectedExtensionIds) {
         super(serverProperty, userVerificationRequired, userPresenceRequired, expectedExtensionIds);
     }
@@ -37,5 +41,4 @@ public class RegistrationParameters extends CoreRegistrationParameters {
     public ServerProperty getServerProperty() {
         return (ServerProperty) super.getServerProperty();
     }
-
 }

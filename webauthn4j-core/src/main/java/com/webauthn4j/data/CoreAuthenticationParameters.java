@@ -34,6 +34,10 @@ public class CoreAuthenticationParameters implements Serializable {
     private final boolean userPresenceRequired;
     private final List<String> expectedExtensionIds;
 
+    /**
+     * @deprecated
+     */
+    @Deprecated
     public CoreAuthenticationParameters(
             CoreServerProperty serverProperty,
             CoreAuthenticator authenticator,
@@ -89,6 +93,10 @@ public class CoreAuthenticationParameters implements Serializable {
         return userPresenceRequired;
     }
 
+    /**
+     * @deprecated
+     */
+    @Deprecated
     public List<String> getExpectedExtensionIds() {
         return expectedExtensionIds;
     }
