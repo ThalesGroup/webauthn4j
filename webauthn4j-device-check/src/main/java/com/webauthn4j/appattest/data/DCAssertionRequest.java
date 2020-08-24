@@ -16,6 +16,8 @@
 
 package com.webauthn4j.appattest.data;
 
+import com.webauthn4j.util.ArrayUtil;
+
 import java.util.Arrays;
 
 public class DCAssertionRequest {
@@ -26,26 +28,26 @@ public class DCAssertionRequest {
     private byte[] signature;
 
     public DCAssertionRequest(byte[] credentialId, byte[] authenticatorData, byte[] clientDataHash, byte[] signature) {
-        this.credentialId = credentialId;
-        this.authenticatorData = authenticatorData;
-        this.clientDataHash = clientDataHash;
-        this.signature = signature;
+        this.credentialId = ArrayUtil.clone(credentialId);
+        this.authenticatorData = ArrayUtil.clone(authenticatorData);
+        this.clientDataHash = ArrayUtil.clone(clientDataHash);
+        this.signature = ArrayUtil.clone(signature);
     }
 
     public byte[] getCredentialId() {
-        return credentialId;
+        return ArrayUtil.clone(credentialId);
     }
 
     public byte[] getAuthenticatorData() {
-        return authenticatorData;
+        return ArrayUtil.clone(authenticatorData);
     }
 
     public byte[] getClientDataHash() {
-        return clientDataHash;
+        return ArrayUtil.clone(clientDataHash);
     }
 
     public byte[] getSignature() {
-        return signature;
+        return ArrayUtil.clone(signature);
     }
 
     @Override

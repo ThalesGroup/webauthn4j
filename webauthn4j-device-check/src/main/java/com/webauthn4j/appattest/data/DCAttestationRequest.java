@@ -16,17 +16,41 @@
 
 package com.webauthn4j.appattest.data;
 
+import com.webauthn4j.util.ArrayUtil;
+
+import java.util.Arrays;
+
 public class DCAttestationRequest {
 
     private byte[] attestationObject;
     private byte[] clientDataHash;
 
+    public DCAttestationRequest(byte[] attestationObject, byte[] clientDataHash) {
+        this.attestationObject = attestationObject;
+        this.clientDataHash = clientDataHash;
+    }
 
     public byte[] getAttestationObject() {
-        return attestationObject;
+        return ArrayUtil.clone(attestationObject);
     }
 
     public byte[] getClientDataHash() {
-        return clientDataHash;
+        return ArrayUtil.clone(clientDataHash);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DCAttestationRequest that = (DCAttestationRequest) o;
+        return Arrays.equals(attestationObject, that.attestationObject) &&
+                Arrays.equals(clientDataHash, that.clientDataHash);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Arrays.hashCode(attestationObject);
+        result = 31 * result + Arrays.hashCode(clientDataHash);
+        return result;
     }
 }
